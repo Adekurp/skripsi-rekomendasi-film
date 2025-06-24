@@ -1,16 +1,14 @@
-# File: BackEnd/nixpacks.toml (Versi 3 - FINAL)
+# File: BackEnd/nixpacks.toml (Percobaan Terakhir)
 
 [phases.setup]
-# Memastikan git dan git-lfs terinstal di lingkungan build
 aptPkgs = ["git", "git-lfs"]
 
 [phases.build]
-# Daftar perintah yang akan dijalankan secara berurutan
+# Menggunakan metode credential helper untuk menyimpan token
 cmds = [
-    # Perintah ini memberitahu git untuk menggunakan GITHUB_TOKEN saat otentikasi ke github.com
-    "git config --global url.\"https://x-access-token:${GITHUB_TOKEN}@github.com/\".insteadOf \"https://github.com/\"",
-    # Perintah untuk mengunduh file besar LFS
+    "git config --global credential.helper store",
+    "echo \"https://x-access-token:${GITHUB_TOKEN}@github.com\" > ~/.git-credentials",
+    "git lfs install",
     "git lfs pull",
-    # Perintah untuk menginstal dependencies Python
     "pip install -r requirements.txt"
 ]
