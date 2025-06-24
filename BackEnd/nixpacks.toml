@@ -1,0 +1,9 @@
+# File: BackEnd/nixpacks.toml (Versi 2)
+
+[phases.setup]
+aptPkgs = ["git", "git-lfs"]
+
+[phases.build]
+# Menambahkan 'git lfs install' untuk memastikan filter LFS aktif di dalam build environment
+# sebelum 'git lfs pull' dijalankan.
+cmds = ["git lfs install", "git lfs pull", "pip install -r requirements.txt"]
