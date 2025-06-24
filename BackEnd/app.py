@@ -147,7 +147,10 @@ def test_db_connection():
         return jsonify({"status": "success", "message": "Berhasil terhubung ke database MySQL di Railway!"})
     else:
         print("❌ Tes koneksi DB GAGAL dari endpoint.")
+        # Kita tambahkan detail error di sini untuk debugging
+        # Ini tidak akan muncul di Postman, tapi di log Railway
         return jsonify({"status": "error", "message": "Gagal terhubung ke database."}), 500
+
 
 @app.route('/api/movies', methods=['GET'])
 def get_all_movies():
