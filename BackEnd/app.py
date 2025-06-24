@@ -43,7 +43,7 @@ db_config = {
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
-    "port": os.getenv("DB_PORT")
+    # "port": os.getenv("DB_PORT")
 }
 
 # Fungsi untuk membuat koneksi ke database, digunakan oleh setiap endpoint
