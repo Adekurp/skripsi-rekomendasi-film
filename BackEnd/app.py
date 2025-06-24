@@ -18,7 +18,23 @@ load_dotenv()
 
 app = Flask(__name__)
 # Aktifkan CORS agar frontend React (berjalan di port lain) bisa mengakses API ini
-CORS(app)
+# CORS(app)
+
+frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+
+# Mengaktifkan CORS dan secara eksplisit mengizinkan origin dari frontend
+# Jika variabel FRONTEND_URL ditemukan di Railway, gunakan itu.
+if frontend_url:
+    print(f"✅ CORS diaktifkan untuk origin tunggal: {frontend_url}")
+    # Langsung masukkan URL tunggal ke dalam list origins
+    CORS(app, origins=[frontend_url], supports_credentials=True)
+else:
+    # Jika tidak disetel (saat development lokal), izinkan semua origin
+    print("⚠️ FRONTEND_URL tidak disetel. Mengizinkan semua origin untuk CORS (Mode Development).")
+    CORS(app)
+
+
+
 
 # Konfigurasi koneksi ke database MySQL dari file .env
 db_config = {
