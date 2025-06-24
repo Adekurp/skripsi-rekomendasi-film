@@ -43,16 +43,33 @@ db_config = {
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
+    "port": os.getenv("DB_PORT")
 }
 
 # Fungsi untuk membuat koneksi ke database, digunakan oleh setiap endpoint
 def create_db_connection():
+    """
+    Membuat koneksi ke database dan mencetak log untuk debugging.
+    """
     try:
+        # Cetak konfigurasi yang digunakan untuk debugging (password disembunyikan)
+        # Ini sangat penting untuk memastikan variabel env sudah benar.
+        debug_config = db_config.copy()
+        debug_config["password"] = "********" # Sembunyikan password di log
+        print(f"Mencoba terhubung ke database dengan konfigurasi: {debug_config}")
+        
         conn = mysql.connector.connect(**db_config)
+        
+        # Jika baris ini tercetak, artinya koneksi BERHASIL dibuat.
+        if conn.is_connected():
+            print("✅ Koneksi ke database berhasil dibuat.")
+        
         return conn
     except Error as e:
-        print(f"Error connecting to MySQL Database: {e}")
+        # Jika ada error, cetak pesan error spesifik dari konektor.
+        print(f"❌ Error connecting to MySQL Database: {e}")
         return None
+
 
 # ========================================================================
 # MEMUAT MODEL (Dijalankan sekali saat server dimulai)
