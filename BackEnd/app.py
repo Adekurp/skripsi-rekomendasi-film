@@ -7,6 +7,7 @@ from flask_cors import CORS
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
+import requests # Pastikan import ini ada di bagian atas file
 
 # ========================================================================
 # SETUP APLIKASI
@@ -40,33 +41,78 @@ def create_db_connection():
 # MEMUAT MODEL (Dijalankan sekali saat server dimulai)
 # ========================================================================
 # --- KODE DEBUGGING BARU ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MOVIES_PATH = os.path.join(BASE_DIR, 'movies_df.pkl')
-SIMILARITY_PATH = os.path.join(BASE_DIR, 'similarity.pkl')
 
+
+# GANTI URL INI DENGAN URL DARI HUGGING FACE ANDA
+MODEL_URLS = {
+    "movies_df.pkl": "https://huggingface.co/Adekurp/skripsi-rekomendasi-film-model/resolve/main/movies_df.pkl",
+    "similarity.pkl": "https://huggingface.co/Adekurp/skripsi-rekomendasi-film-model/resolve/main/similarity.pkl"
+}
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def download_file(url, destination):
+    print(f"Mengunduh model dari {url}...")
+    try:
+        with requests.get(url, stream=True) as r:
+            r.raise_for_status()
+            with open(destination, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    f.write(chunk)
+        print(f"✅ Berhasil mengunduh ke {destination}")
+        return True
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Gagal mengunduh model: {e}")
+        return False
 
 try:
-    print(f"Mencoba memuat model dari path: {BASE_DIR}")
-    print(f"Path file movies: {MOVIES_PATH}")
-    print(f"Path file similarity: {SIMILARITY_PATH}")
+    for filename, url in MODEL_URLS.items():
+        filepath = os.path.join(BASE_DIR, filename)
+        if not os.path.exists(filepath):
+            print(f"File {filename} tidak ditemukan. Memulai proses unduh.")
+            if not download_file(url, filepath):
+                exit(1) # Hentikan aplikasi jika download gagal
+        else:
+            print(f"File {filename} sudah ada. Melanjutkan.")
 
-    with open(MOVIES_PATH, 'rb') as f:
-        movies_df = pickle.load(f)
-
-    with open(SIMILARITY_PATH, 'rb') as f:
-        similarity_matrix = pickle.load(f)
-
+    movies_df = pickle.load(open(os.path.join(BASE_DIR, "movies_df.pkl"), 'rb'))
+    similarity_matrix = pickle.load(open(os.path.join(BASE_DIR, "similarity.pkl"), 'rb'))
     print("✅ Model machine learning berhasil dimuat.")
 
-except FileNotFoundError as e:
-    print(f"❌ FATAL ERROR: File model tidak ditemukan.")
-    print(f"Error detail: {e}")
-    # Di lingkungan produksi, sebaiknya aplikasi berhenti jika model gagal dimuat.
-    # exit() akan menghentikan proses, dan Railway akan tahu ada yang salah.
-    exit(1)
 except Exception as e:
     print(f"❌ FATAL ERROR: Terjadi kesalahan saat memuat model: {e}")
     exit(1)
+
+
+
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# MOVIES_PATH = os.path.join(BASE_DIR, 'movies_df.pkl')
+# SIMILARITY_PATH = os.path.join(BASE_DIR, 'similarity.pkl')
+
+
+# try:
+#     print(f"Mencoba memuat model dari path: {BASE_DIR}")
+#     print(f"Path file movies: {MOVIES_PATH}")
+#     print(f"Path file similarity: {SIMILARITY_PATH}")
+
+#     with open(MOVIES_PATH, 'rb') as f:
+#         movies_df = pickle.load(f)
+
+#     with open(SIMILARITY_PATH, 'rb') as f:
+#         similarity_matrix = pickle.load(f)
+
+#     print("✅ Model machine learning berhasil dimuat.")
+
+# except FileNotFoundError as e:
+#     print(f"❌ FATAL ERROR: File model tidak ditemukan.")
+#     print(f"Error detail: {e}")
+#     # Di lingkungan produksi, sebaiknya aplikasi berhenti jika model gagal dimuat.
+#     # exit() akan menghentikan proses, dan Railway akan tahu ada yang salah.
+#     exit(1)
+# except Exception as e:
+#     print(f"❌ FATAL ERROR: Terjadi kesalahan saat memuat model: {e}")
+#     exit(1)
 
 
 
