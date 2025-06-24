@@ -137,6 +137,18 @@ except Exception as e:
 # ENDPOINT API
 # ========================================================================
 
+@app.route('/api/test-db')
+def test_db_connection():
+    print("Mencoba endpoint /api/test-db...")
+    conn = create_db_connection()
+    if conn and conn.is_connected():
+        print("✅ Tes koneksi DB berhasil dari endpoint.")
+        conn.close()
+        return jsonify({"status": "success", "message": "Berhasil terhubung ke database MySQL di Railway!"})
+    else:
+        print("❌ Tes koneksi DB GAGAL dari endpoint.")
+        return jsonify({"status": "error", "message": "Gagal terhubung ke database."}), 500
+
 @app.route('/api/movies', methods=['GET'])
 def get_all_movies():
     """Endpoint untuk mendapatkan daftar semua film (id dan judul) untuk dropdown pencarian."""
