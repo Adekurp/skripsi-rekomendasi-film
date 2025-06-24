@@ -1,0 +1,66 @@
+# ========================================================================
+# .gitignore Utama untuk Proyek Monorepo (Python + Node.js)
+# ========================================================================
+
+# 1. Aturan Umum & Keamanan
+# ==========================
+# Abaikan file environment variables di mana pun lokasinya. SANGAT PENTING.
+.env
+.env.*
+*.local
+!.env.example
+
+# 2. Aturan untuk Log
+# ==========================
+# Diambil dari file .gitignore frontend Anda (sudah bagus)
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+# 3. Aturan untuk Python (BackEnd & scrape)
+# ============================================
+# Virtual environments
+venv/
+env/
+*.venv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Flask instance folder
+instance/
+
+
+# 4. Aturan untuk Node.js (FrontEnd)
+# ======================================
+# Dependencies (folder yang sangat besar)
+node_modules/
+
+# Hasil build
+dist/
+dist-ssr/
+
+
+# 5. Aturan untuk Sistem Operasi & Editor
+# ============================================
+# Diambil dari file .gitignore frontend Anda (sudah bagus)
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
