@@ -19,7 +19,7 @@ Anda dapat mencoba aplikasi secara langsung melalui tautan berikut. Proses *star
 * **Pencarian Film:** Pengguna dapat mencari film berdasarkan judul dari database yang luas.
 * **Detail Film Lengkap:** Menampilkan informasi detail seperti sinopsis, genre, rating, poster, dan pemeran utama.
 * **Rekomendasi Cerdas:** Memberikan rekomendasi film yang relevan berdasarkan kemiripan konten dari film yang dipilih.
-* **Platform Streaming:** Menyorot platform *streaming* yang paling dominan dari hasil film yang direkomendasikan untuk memudahkan pengguna.
+* **Platform Streaming:** Membuat platform *streaming* yang paling dominan dari hasil film yang direkomendasikan untuk memudahkan pengguna.
 
 ---
 
