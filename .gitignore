@@ -66,3 +66,9 @@ dist-ssr/
 .idea/
 
 *.pkl
+scrape/*.csv
+scrape/*.ipynb
+scrape/scrapingdata.py
+scrape/scrapingdisney.py
+scrape/tambahkolom.py
+scrape/scraping.py
