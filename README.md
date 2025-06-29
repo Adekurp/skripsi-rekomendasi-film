@@ -1,4 +1,4 @@
-# Sistem Rekomendasi Film Berbasis Konten
+# Sistem Rekomendasi Film dan Layanan Streaming Film Berbasis Konten
 
 ![Gambar Ilustrasi Film](https://github.com/user-attachments/assets/6b14386e-ff71-4e12-ad2d-3e231d7a4421)
 
