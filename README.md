@@ -2,7 +2,7 @@
 
 ![Gambar Ilustrasi Film](https://github.com/user-attachments/assets/6b14386e-ff71-4e12-ad2d-3e231d7a4421)
 
-Ini adalah sebuah project untuk membangun aplikasi web sistem rekomendasi film. Aplikasi ini menggunakan model *machine learning* dengan pendekatan *content-based filtering* untuk memberikan rekomendasi yang relevan kepada pengguna. Proyek ini mencakup pengembangan frontend, backend, hingga deployment ke platform cloud.
+Ini adalah sebuah project tugas akhir untuk membangun aplikasi web sistem rekomendasi film dan layanan streaming film. Website ini menggunakan model *machine learning* dengan pendekatan *content-based filtering* untuk memberikan rekomendasi yang relevan kepada pengguna. Proyek ini mencakup pengembangan frontend, backend, hingga deployment ke platform cloud.
 
 ---
 
